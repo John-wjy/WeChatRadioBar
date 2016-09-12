@@ -1,6 +1,7 @@
 package io.github.leibnik.wechatradiobar;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,12 +12,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.StaticLayout;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.RadioButton;
 
 /**
  * Created by Droidroid on 2016/5/10.
  */
 public class WechatRadioButton extends RadioButton {
+
+    private static final int DEFAULT_ICON_WIDTH = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30.0f, Resources.getSystem().getDisplayMetrics());
 
     private Paint mFocusPaint;
     private Paint mTextPaint;
@@ -31,7 +36,6 @@ public class WechatRadioButton extends RadioButton {
     private Drawable mFocusDrawable;
     private Drawable mDefocusDrawable;
 
-    private Rect mRect;
     private int mAlpha;
     private int mColor;
     private float mFontHeight;
@@ -57,6 +61,8 @@ public class WechatRadioButton extends RadioButton {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WechatRadioButton);
         mFocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_focus_icon);
         mDefocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_defocus_icon);
+        iconWidth = ta.getDimensionPixelOffset(R.styleable.WechatRadioButton_icon_width, DEFAULT_ICON_WIDTH);
+        iconHeight = ta.getDimensionPixelOffset(R.styleable.WechatRadioButton_icon_height, DEFAULT_ICON_WIDTH);
         mColor = ta.getColor(R.styleable.WechatRadioButton_focus_color, Color.BLUE);
         ta.recycle();
 
@@ -70,9 +76,9 @@ public class WechatRadioButton extends RadioButton {
             throw new RuntimeException("'focus_icon' and 'defocus_icon' attribute should be defined");
         }
 
-        mRect = mDefocusDrawable.getBounds();
-        iconWidth = mRect.width();
-        iconHeight = mRect.height();
+        mDefocusDrawable.setBounds(0, 0, iconWidth, iconHeight);
+        mFocusDrawable.setBounds(0, 0, iconWidth, iconHeight);
+
         iconPadding = getCompoundDrawablePadding();
 
         Paint.FontMetrics fontMetrics = getPaint().getFontMetrics();
@@ -88,8 +94,11 @@ public class WechatRadioButton extends RadioButton {
     }
 
     private Bitmap getBitmapFromDrawable(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(iconWidth, iconHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
         if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable) drawable).getBitmap();
+            drawable.draw(canvas);
+            return bitmap;
         } else {
             throw new RuntimeException("The Drawable must be an instance of BitmapDrawable");
         }
@@ -105,7 +114,7 @@ public class WechatRadioButton extends RadioButton {
 
     private void drawDefocusIcon(Canvas canvas) {
         mDefocusPaint.setAlpha(255 - mAlpha);
-        canvas.drawBitmap(mDefocusBitmap, (getWidth() - iconWidth) / 2, iconPadding, mDefocusPaint);
+        canvas.drawBitmap(mDefocusBitmap, (getWidth() - iconWidth) / 2, getPaddingTop(), mDefocusPaint);
     }
 
     private void drawFocusIcon(Canvas canvas) {
