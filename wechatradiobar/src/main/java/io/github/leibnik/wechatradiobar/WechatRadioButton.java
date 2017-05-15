@@ -26,8 +26,6 @@ public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioB
 
     private Bitmap mDefocusBitmap;
     private Bitmap mFocusBitmap;
-    private Drawable mFocusDrawable;
-    private Drawable mDefocusDrawable;
 
     private int mAlpha;
     private int mColor;
@@ -52,8 +50,8 @@ public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioB
         mDefocusPaint.setAntiAlias(true);
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WechatRadioButton);
-        mFocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_focus_icon);
-        mDefocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_defocus_icon);
+        Drawable mFocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_focus_icon);
+        Drawable mDefocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_defocus_icon);
         mColor = ta.getColor(R.styleable.WechatRadioButton_focus_color, Color.BLUE);
         ta.recycle();
 
