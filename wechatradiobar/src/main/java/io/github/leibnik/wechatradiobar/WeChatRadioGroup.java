@@ -9,14 +9,14 @@ import android.widget.RadioGroup;
 /**
  * Created by Droidroid on 2016/5/10.
  */
-public class WechatRadioGroup extends RadioGroup implements ViewPager.OnPageChangeListener{
+public class WeChatRadioGroup extends RadioGroup implements ViewPager.OnPageChangeListener{
     private ViewPager mViewPager;
 
-    public WechatRadioGroup(Context context) {
+    public WeChatRadioGroup(Context context) {
         super(context);
     }
 
-    public WechatRadioGroup(Context context, AttributeSet attrs) {
+    public WeChatRadioGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -50,8 +50,8 @@ public class WechatRadioGroup extends RadioGroup implements ViewPager.OnPageChan
 
     private void updateGradient(int position, float offset) {
         if (offset > 0) {
-            ((WechatRadioButton) getChildAt(position)).updateAlpha(255 * (1 - offset));
-            ((WechatRadioButton) getChildAt(position + 1)).updateAlpha(255 * offset);
+            ((WeChatRadioButton) getChildAt(position)).updateAlpha(255 * (1 - offset));
+            ((WeChatRadioButton) getChildAt(position + 1)).updateAlpha(255 * offset);
         }
     }
 
@@ -68,15 +68,15 @@ public class WechatRadioGroup extends RadioGroup implements ViewPager.OnPageChan
 
     private void setSelectedViewChecked(int position) {
         for (int i = 0; i < getChildCount(); i++) {
-            ((WechatRadioButton) getChildAt(i)).setChecked(false);
+            ((WeChatRadioButton) getChildAt(i)).setChecked(false);
         }
-        ((WechatRadioButton) getChildAt(position)).setChecked(true);
+        ((WeChatRadioButton) getChildAt(position)).setChecked(true);
     }
 
     private void setClickedViewChecked(int position) {
         for (int i = 0; i < getChildCount(); i++) {
-            ((WechatRadioButton) getChildAt(i)).setRadioButtonChecked(false);
+            ((WeChatRadioButton) getChildAt(i)).setRadioButtonChecked(false);
         }
-        ((WechatRadioButton) getChildAt(position)).setRadioButtonChecked(true);
+        ((WeChatRadioButton) getChildAt(position)).setRadioButtonChecked(true);
     }
 }

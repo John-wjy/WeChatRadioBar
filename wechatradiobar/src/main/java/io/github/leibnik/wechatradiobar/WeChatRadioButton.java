@@ -14,17 +14,17 @@ import android.util.AttributeSet;
 /**
  * Created by Droidroid on 2016/5/10.
  */
-public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioButton {
+public class WeChatRadioButton extends android.support.v7.widget.AppCompatRadioButton {
 
     private Paint mFocusPaint;
     private Paint mTextPaint;
-    private Paint mDefocusPaint;
+    private Paint mDeFocusPaint;
 
     private int iconWidth;
     private int iconPadding;
     private int iconHeight;
 
-    private Bitmap mDefocusBitmap;
+    private Bitmap mDeFocusBitmap;
     private Bitmap mFocusBitmap;
 
     private int mAlpha;
@@ -32,11 +32,11 @@ public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioB
     private float mFontHeight;
     private float mTextWidth;
 
-    public WechatRadioButton(Context context) {
+    public WeChatRadioButton(Context context) {
         this(context, null);
     }
 
-    public WechatRadioButton(Context context, AttributeSet attrs) {
+    public WeChatRadioButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
@@ -44,31 +44,31 @@ public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioB
     private void init(Context context, AttributeSet attrs) {
         mFocusPaint = new Paint();
         mTextPaint = new Paint();
-        mDefocusPaint = new Paint();
+        mDeFocusPaint = new Paint();
         mFocusPaint.setAntiAlias(true);
         mTextPaint.setAntiAlias(true);
-        mDefocusPaint.setAntiAlias(true);
+        mDeFocusPaint.setAntiAlias(true);
 
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WechatRadioButton);
-        Drawable mFocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_focus_icon);
-        Drawable mDefocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_defocus_icon);
-        mColor = ta.getColor(R.styleable.WechatRadioButton_focus_color, Color.BLUE);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WeChatRadioButton);
+        Drawable mFocusDrawable = ta.getDrawable(R.styleable.WeChatRadioButton_focus_icon);
+        Drawable mDeFocusDrawable = ta.getDrawable(R.styleable.WeChatRadioButton_defocus_icon);
+        mColor = ta.getColor(R.styleable.WeChatRadioButton_focus_color, Color.BLUE);
         ta.recycle();
 
         setButtonDrawable(null);
-        if (mDefocusDrawable != null) {
-            setCompoundDrawablesWithIntrinsicBounds(null, mDefocusDrawable, null, null);
-            mDefocusDrawable = getCompoundDrawables()[1];
+        if (mDeFocusDrawable != null) {
+            setCompoundDrawablesWithIntrinsicBounds(null, mDeFocusDrawable, null, null);
+            mDeFocusDrawable = getCompoundDrawables()[1];
         }
 
-        if (mFocusDrawable == null || mDefocusDrawable == null) {
+        if (mFocusDrawable == null || mDeFocusDrawable == null) {
             throw new RuntimeException("'focus_icon' and 'defocus_icon' attributes should be defined");
         }
 
-        iconWidth = mDefocusDrawable.getIntrinsicWidth();
-        iconHeight = mDefocusDrawable.getIntrinsicHeight();
+        iconWidth = mDeFocusDrawable.getIntrinsicWidth();
+        iconHeight = mDeFocusDrawable.getIntrinsicHeight();
 
-        mDefocusDrawable.setBounds(0, 0, iconWidth, iconHeight);
+        mDeFocusDrawable.setBounds(0, 0, iconWidth, iconHeight);
         mFocusDrawable.setBounds(0, 0, iconWidth, iconHeight);
 
         iconPadding = getCompoundDrawablePadding();
@@ -77,7 +77,7 @@ public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioB
         mFontHeight = (float) Math.ceil(fontMetrics.descent - fontMetrics.ascent);
         mTextWidth = StaticLayout.getDesiredWidth(getText(), getPaint());
 
-        mDefocusBitmap = getBitmapFromDrawable(mDefocusDrawable);
+        mDeFocusBitmap = getBitmapFromDrawable(mDeFocusDrawable);
         mFocusBitmap = getBitmapFromDrawable(mFocusDrawable);
 
         if (isChecked()) {
@@ -98,15 +98,15 @@ public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioB
 
     @Override
     protected void onDraw(Canvas canvas) {
-        drawDefocusIcon(canvas);
+        drawDeFocusIcon(canvas);
         drawFocusIcon(canvas);
-        drawDefocusText(canvas);
+        drawDeFocusText(canvas);
         drawFocusText(canvas);
     }
 
-    private void drawDefocusIcon(Canvas canvas) {
-        mDefocusPaint.setAlpha(255 - mAlpha);
-        canvas.drawBitmap(mDefocusBitmap, (getWidth() - iconWidth) / 2, getPaddingTop(), mDefocusPaint);
+    private void drawDeFocusIcon(Canvas canvas) {
+        mDeFocusPaint.setAlpha(255 - mAlpha);
+        canvas.drawBitmap(mDeFocusBitmap, (getWidth() - iconWidth) / 2, getPaddingTop(), mDeFocusPaint);
     }
 
     private void drawFocusIcon(Canvas canvas) {
@@ -114,7 +114,7 @@ public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioB
         canvas.drawBitmap(mFocusBitmap, (getWidth() - iconWidth) / 2, getPaddingTop(), mFocusPaint);
     }
 
-    private void drawDefocusText(Canvas canvas) {
+    private void drawDeFocusText(Canvas canvas) {
         mTextPaint.setColor(getCurrentTextColor());
         mTextPaint.setAlpha(255 - mAlpha);
         mTextPaint.setTextSize(getTextSize());

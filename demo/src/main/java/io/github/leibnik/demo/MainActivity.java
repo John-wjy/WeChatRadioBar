@@ -10,19 +10,19 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.leibnik.wechatradiobar.WechatRadioGroup;
+import io.github.leibnik.wechatradiobar.WeChatRadioGroup;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private WechatRadioGroup gradualRadioGroup;
+    private WeChatRadioGroup gradualRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        gradualRadioGroup = (WechatRadioGroup) findViewById(R.id.radiogroup);
+        gradualRadioGroup = (WeChatRadioGroup) findViewById(R.id.radiogroup);
         List<DemoFragment> list = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             DemoFragment fragment = new DemoFragment();
