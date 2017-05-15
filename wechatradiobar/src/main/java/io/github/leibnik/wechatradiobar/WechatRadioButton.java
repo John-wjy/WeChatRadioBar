@@ -1,27 +1,21 @@
 package io.github.leibnik.wechatradiobar;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.StaticLayout;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.widget.RadioButton;
 
 /**
  * Created by Droidroid on 2016/5/10.
  */
 public class WechatRadioButton extends RadioButton {
-
-    private static final int DEFAULT_ICON_WIDTH = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30.0f, Resources.getSystem().getDisplayMetrics());
 
     private Paint mFocusPaint;
     private Paint mTextPaint;
@@ -61,8 +55,6 @@ public class WechatRadioButton extends RadioButton {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.WechatRadioButton);
         mFocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_focus_icon);
         mDefocusDrawable = ta.getDrawable(R.styleable.WechatRadioButton_defocus_icon);
-        iconWidth = ta.getDimensionPixelOffset(R.styleable.WechatRadioButton_icon_width, DEFAULT_ICON_WIDTH);
-        iconHeight = ta.getDimensionPixelOffset(R.styleable.WechatRadioButton_icon_height, DEFAULT_ICON_WIDTH);
         mColor = ta.getColor(R.styleable.WechatRadioButton_focus_color, Color.BLUE);
         ta.recycle();
 
@@ -73,8 +65,11 @@ public class WechatRadioButton extends RadioButton {
         }
 
         if (mFocusDrawable == null || mDefocusDrawable == null) {
-            throw new RuntimeException("'focus_icon' and 'defocus_icon' attribute should be defined");
+            throw new RuntimeException("'focus_icon' and 'defocus_icon' attributes should be defined");
         }
+
+        iconWidth = mDefocusDrawable.getIntrinsicWidth();
+        iconHeight = mDefocusDrawable.getIntrinsicHeight();
 
         mDefocusDrawable.setBounds(0, 0, iconWidth, iconHeight);
         mFocusDrawable.setBounds(0, 0, iconWidth, iconHeight);

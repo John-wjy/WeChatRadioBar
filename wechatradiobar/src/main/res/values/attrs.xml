@@ -4,7 +4,5 @@
         <attr name="focus_icon" format="reference"/>
         <attr name="defocus_icon" format="reference"/>
         <attr name="focus_color" format="color"/>
-        <attr name="icon_width" format="dimension"/>
-        <attr name="icon_height" format="dimension"/>
     </declare-styleable>
 </resources>
