@@ -10,12 +10,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.StaticLayout;
 import android.util.AttributeSet;
-import android.widget.RadioButton;
 
 /**
  * Created by Droidroid on 2016/5/10.
  */
-public class WechatRadioButton extends RadioButton {
+public class WechatRadioButton extends android.support.v7.widget.AppCompatRadioButton {
 
     private Paint mFocusPaint;
     private Paint mTextPaint;
